@@ -1,0 +1,25 @@
+---
+title: "ts_project"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Topicos Selectos: Questions
+
+1.-How many observations per year?
+
+2.- In which year and season the collection data process began?
+
+3.- How many observations the data shows per gender (male vs female) in total. And how many observations per gender (male vs female) is divided by year?
+
+4,- How many students are grouped by each team? And how many students are grouped by each team per semester and per year? (This question should show 3 graphs)
+
+5.- What is the relationship between the number of commits (commitCount) and the total hours of coding deliverables (codingDeliveablesHoursTotal)? Can we infer a relationship? Could we define this relationship as positive or negative?
+
+
+
