@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 3.- How many observations the data shows per gender (male vs female) in total. And how many observations per gender (male vs female) is divided by year?
 
-4,- How many students are grouped by each team? And how many students are grouped by each team per semester and per year? (This question should show 3 graphs)
+4.- How many students are grouped by each team? And how many students are grouped by each team per semester and per year? (This question should show 3 graphs)
 
 5.- What is the relationship between the number of commits (commitCount) and the total hours of coding deliverables (codingDeliveablesHoursTotal)? Can we infer a relationship? Could we define this relationship as positive or negative?
 
