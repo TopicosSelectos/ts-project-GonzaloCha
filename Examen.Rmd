@@ -51,10 +51,11 @@ La gráfica anterior muestra el total de personas que participan y no participan
 #2.- In which country do you currently reside?
 
 ```{r}
-StackOverflow %>% count(Country)
-
 ggplot(data = StackOverflow) + 
-  geom_bar(mapping = aes(x = Country))
+  geom_bar(mapping = aes(x = Country)) +
+  theme (text = element_text(size=12)) + 
+  ggtitle ("In which country do you currently reside?") +
+  labs(x = "País",y = "Cantitad")
 ```
 La gráfica anterior muestra la cantidad de personas de cada país.
 
@@ -132,6 +133,7 @@ ggplot(data = SETAP) +
   ggtitle ("How many observations per year?") +
   labs(x = "Año",y = "Observaciones") 
 ```
+La gráfica anterior muestra el total de observaciones por año.
 
 
 
@@ -146,6 +148,7 @@ geom_point(position = position_jitter()) +
   ggtitle ("In which year and season the collection data process began?") +
   labs(x = "Año",y = "Observaciones por semestre") 
 ```
+Esta gráfica nos muestra en que año y temporada empezó el proceso de recolección de datos.
 
 
 
@@ -162,6 +165,7 @@ ggplot(data = SETAP) +
   ggtitle ("How many observations the data shows per gender (male vs female) in total") +
   labs(x = "Genero",y = "Observaciones") 
 ```
+Nos muestra el total de observaciones por cada genero.
 
 ```{r}
 SETAP %>%
@@ -172,6 +176,7 @@ SETAP %>%
   ggtitle ("How many observations per Female is divided by year") +
   labs(x = "Año",y = "Observaciones") 
 ```
+Esta gráfica nos muestra el total de observaciones por cada año y temporada de las mujeres.
 
 ```{r}
 SETAP %>%
@@ -182,6 +187,7 @@ SETAP %>%
   ggtitle ("How many observations per Male is divided by year") +
   labs(x = "Año",y = "Observaciones")
 ```
+Esta gráfica nos muestra el total de observaciones por cada año y temporada de los hombres.
 
 
 
@@ -197,6 +203,7 @@ ggplot(data = SETAP) +
   ggtitle ("How many students are grouped by each team?") +
   labs(x = "Equipo",y = "Observaciones por equipo") 
 ```
+Nos muestra el total de estudiantes en cada equipo.
 
 ```{r}
 ggplot(data = SETAP) + 
@@ -205,12 +212,21 @@ ggplot(data = SETAP) +
   ggtitle ("How many students are grouped by each team per semester") +
   labs(x = "Equipo",y = "Observaciones por equipo") 
 ```
+Nos muestra el total de estudiantes en cada grupo por semestre.
 
-
+```{r}
+ggplot(data = SETAP) + 
+  geom_bar(mapping = aes(x = teamNumber, fill = year)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many students are grouped by each team per semester") +
+  labs(x = "Equipo",y = "Observaciones por equipo") 
+```
+Nos muestra el total de estudiantes en cada grupo por año.
 
 
 
 #5.- What is the relationship between the number of commits (commitCount) and the total hours of coding deliverables (codingDeliveablesHoursTotal)? Can we infer a relationship? Could we define this relationship as positive or negative?
+
 
 
 
