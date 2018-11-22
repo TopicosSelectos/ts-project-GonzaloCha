@@ -140,14 +140,14 @@ ggplot(data = SETAP) +
 #2.- In which year and season the collection data process began?
 
 ```{r}
-SETAP %>%
-  filter(year == "2012") %>%
-  ggplot(aes(x = semester, fill = semester))+ 
-  geom_bar() + 
+ggplot(SETAP, aes(x = year, y = semester, colour = year == "2012")) +
+geom_point(position = position_jitter()) + 
   theme (text = element_text(size=12)) + 
   ggtitle ("In which year and season the collection data process began?") +
-  labs(x = "2012, Fall",y = "Observaciones") 
+  labs(x = "Año",y = "Observaciones por semestre") 
 ```
+
+
 
 
 
@@ -182,4 +182,35 @@ SETAP %>%
   ggtitle ("How many observations per Male is divided by year") +
   labs(x = "Año",y = "Observaciones")
 ```
+
+
+
+
+
+
+#4.- How many students are grouped by each team? And how many students are grouped by each team per semester and per year? (This question should show 3 graphs)
+
+```{r}
+ggplot(data = SETAP) + 
+  geom_bar(mapping = aes(x = teamNumber, fill = teamLeadGender)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many students are grouped by each team?") +
+  labs(x = "Equipo",y = "Observaciones por equipo") 
+```
+
+```{r}
+ggplot(data = SETAP) + 
+  geom_bar(mapping = aes(x = teamNumber, fill = semester)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many students are grouped by each team per semester") +
+  labs(x = "Equipo",y = "Observaciones por equipo") 
+```
+
+
+
+
+
+#5.- What is the relationship between the number of commits (commitCount) and the total hours of coding deliverables (codingDeliveablesHoursTotal)? Can we infer a relationship? Could we define this relationship as positive or negative?
+
+
 
