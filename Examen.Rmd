@@ -1,0 +1,185 @@
+---
+title: "Examen"
+output: html_document
+---
+
+```{r}
+install.packages("tidyverse")
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+StackOverflow <- read.csv("survey_results_public.csv")
+```
+
+
+```{r}
+StackOverflow
+```
+
+
+
+
+
+Exploratory Analysis
+
+
+
+#1.- Do you contribute to open source projects?
+
+```{r}
+OpenSourceGraf <- ggplot(data = StackOverflow) + 
+  geom_bar(mapping = aes(x = OpenSource, fill = OpenSource))
+
+Pregunta1 <- OpenSourceGraf + theme (text = element_text(size=12)) + 
+  ggtitle ("Do you contribute to open source projects?") +
+  labs(x = "Contribuye en Open Source",y = "Cantitad")
+
+Pregunta1
+```
+
+La gráfica anterior muestra el total de personas que participan y no participan en proyectos de Open Source.
+
+
+
+
+
+#2.- In which country do you currently reside?
+
+```{r}
+StackOverflow %>% count(Country)
+
+ggplot(data = StackOverflow) + 
+  geom_bar(mapping = aes(x = Country))
+```
+La gráfica anterior muestra la cantidad de personas de cada país.
+
+
+
+
+
+#3.- Are you currently enrolled in a formal, degree-granting college or university program?
+
+```{r}
+
+ggplot(data = StackOverflow) + 
+  geom_bar(mapping = aes(x = Student, fill = Student)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("Are you currently enrolled in a formal, degree-granting college or university program?") +
+  labs(x = "Es estudiante",y = "Cantitad")
+
+```
+En la gráfica anterior podemos observar si son estudiantes de tiempo completo, parte del tiempo o si no están estudiando.
+
+
+
+
+
+
+#4.- Which of the following best describes your current employment status?
+
+```{r}
+ggplot(data = StackOverflow) + 
+  geom_bar(mapping = aes(x = Employment, fill = Employment)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("Which of the following best describes your current employment status?") +
+  labs(x = "Employment",y = "Cantitad")
+```
+En la gráfica anterior nos muestra el estado actual del empleo de las personas encuestadas.
+
+
+
+
+
+
+#5.- Which of the following best describes the highest level of formal education that you’ve completed?
+
+```{r}
+ggplot(data = StackOverflow) + 
+  geom_bar(mapping = aes(x = FormalEducation, fill = FormalEducation)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("Which of the following best describes the highest level of formal education that you’ve completed?") +
+  labs(x = "Formal Education",y = "Cantitad")
+```
+Esta gráfica nos muestra hasta que grado escolar formal llegaron las personas que contestaron la encuesta.
+
+
+
+
+
+```{r}
+SETAP <- read.csv("Software Engineering Team Assessment and Prediction (SETAP) Project - Sheet1.csv")
+```
+
+
+```{r}
+SETAP
+```
+
+
+#1.-How many observations per year?
+
+```{r}
+SETAP %>% count(year)
+
+ggplot(data = SETAP) + 
+  geom_bar(mapping = aes(x = year, fill = semester)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many observations per year?") +
+  labs(x = "Año",y = "Observaciones") 
+```
+
+
+
+
+
+#2.- In which year and season the collection data process began?
+
+```{r}
+SETAP %>%
+  filter(year == "2012") %>%
+  ggplot(aes(x = semester, fill = semester))+ 
+  geom_bar() + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("In which year and season the collection data process began?") +
+  labs(x = "2012, Fall",y = "Observaciones") 
+```
+
+
+
+
+
+#3.- How many observations the data shows per gender (male vs female) in total. And how many observations per gender (male vs female) is divided by year?
+
+```{r}
+ggplot(data = SETAP) + 
+  geom_bar(mapping = aes(x = teamLeadGender, fill = teamLeadGender)) + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many observations the data shows per gender (male vs female) in total") +
+  labs(x = "Genero",y = "Observaciones") 
+```
+
+```{r}
+SETAP %>%
+  filter(teamLeadGender == "F") %>%
+  ggplot(aes(x = year, fill = semester))+ 
+  geom_bar() + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many observations per Female is divided by year") +
+  labs(x = "Año",y = "Observaciones") 
+```
+
+```{r}
+SETAP %>%
+  filter(teamLeadGender == "M") %>%
+  ggplot(aes(x = year, fill = semester))+ 
+  geom_bar() + 
+  theme (text = element_text(size=12)) + 
+  ggtitle ("How many observations per Male is divided by year") +
+  labs(x = "Año",y = "Observaciones")
+```
+
