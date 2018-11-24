@@ -3,9 +3,8 @@ title: "Examen"
 output: html_document
 ---
 
-```{r}
-install.packages("tidyverse")
-```
+
+
 
 
 ```{r}
@@ -14,11 +13,6 @@ library(tidyverse)
 
 ```{r}
 StackOverflow <- read.csv("survey_results_public.csv")
-```
-
-
-```{r}
-StackOverflow
 ```
 
 
@@ -37,12 +31,12 @@ OpenSourceGraf <- ggplot(data = StackOverflow) +
 
 Pregunta1 <- OpenSourceGraf + theme (text = element_text(size=12)) + 
   ggtitle ("Do you contribute to open source projects?") +
-  labs(x = "Contribuye en Open Source",y = "Cantitad")
+  labs(x = "contribute to open source",y = "Quantity")
 
 Pregunta1
 ```
 
-La gráfica anterior muestra el total de personas que participan y no participan en proyectos de Open Source.
+The previous graph shows the total number of people who participate and do not participate in Open Source projects.
 
 
 
@@ -51,13 +45,18 @@ La gráfica anterior muestra el total de personas que participan y no participan
 #2.- In which country do you currently reside?
 
 ```{r}
-ggplot(data = StackOverflow) + 
-  geom_bar(mapping = aes(x = Country)) +
+Paises <- StackOverflow %>% count(Country) %>%
+arrange(desc(n))
+
+PaisesTop <- head(Paises, 10)
+
+ggplot(PaisesTop, aes(x = Country, y = n, fill = Country)) +
+  geom_col() + 
   theme (text = element_text(size=12)) + 
   ggtitle ("In which country do you currently reside?") +
-  labs(x = "País",y = "Cantitad")
+  labs(x = "Country",y = "Quantity")
 ```
-La gráfica anterior muestra la cantidad de personas de cada país.
+The graph above shows the number of people in each country, we can see that in the United States is where most of the people who answered the survey.
 
 
 
@@ -71,10 +70,10 @@ ggplot(data = StackOverflow) +
   geom_bar(mapping = aes(x = Student, fill = Student)) + 
   theme (text = element_text(size=12)) + 
   ggtitle ("Are you currently enrolled in a formal, degree-granting college or university program?") +
-  labs(x = "Es estudiante",y = "Cantitad")
+  labs(x = "Student",y = "Quantity")
 
 ```
-En la gráfica anterior podemos observar si son estudiantes de tiempo completo, parte del tiempo o si no están estudiando.
+In the previous graph we can see if they are full-time students, part of the time or if they are not studying, where it shows that the majority is no longer a student.
 
 
 
@@ -88,9 +87,9 @@ ggplot(data = StackOverflow) +
   geom_bar(mapping = aes(x = Employment, fill = Employment)) + 
   theme (text = element_text(size=12)) + 
   ggtitle ("Which of the following best describes your current employment status?") +
-  labs(x = "Employment",y = "Cantitad")
+  labs(x = "Employment",y = "Quantity")
 ```
-En la gráfica anterior nos muestra el estado actual del empleo de las personas encuestadas.
+The previous graph shows the current employment status of the people surveyed. More than 60,000 people are employed full-time.
 
 
 
@@ -104,9 +103,13 @@ ggplot(data = StackOverflow) +
   geom_bar(mapping = aes(x = FormalEducation, fill = FormalEducation)) + 
   theme (text = element_text(size=12)) + 
   ggtitle ("Which of the following best describes the highest level of formal education that you’ve completed?") +
-  labs(x = "Formal Education",y = "Cantitad")
+  labs(x = "Formal Education",y = "Quantity")
 ```
-Esta gráfica nos muestra hasta que grado escolar formal llegaron las personas que contestaron la encuesta.
+This graph shows us to what degree of formal education the people who answered the survey arrived.
+
+
+
+
 
 
 
@@ -117,23 +120,18 @@ SETAP <- read.csv("Software Engineering Team Assessment and Prediction (SETAP) P
 ```
 
 
-```{r}
-SETAP
-```
 
 
 #1.-How many observations per year?
 
 ```{r}
-SETAP %>% count(year)
-
 ggplot(data = SETAP) + 
   geom_bar(mapping = aes(x = year, fill = semester)) + 
   theme (text = element_text(size=12)) + 
   ggtitle ("How many observations per year?") +
-  labs(x = "Año",y = "Observaciones") 
+  labs(x = "Year",y = "Observations") 
 ```
-La gráfica anterior muestra el total de observaciones por año.
+The previous graph shows the total of observations per year divided in each of the semesters.In 2015, there were more observations.
 
 
 
@@ -142,13 +140,14 @@ La gráfica anterior muestra el total de observaciones por año.
 #2.- In which year and season the collection data process began?
 
 ```{r}
-ggplot(SETAP, aes(x = year, y = semester, colour = year == "2012")) +
-geom_point(position = position_jitter()) + 
+ggplot(data = SETAP) + 
+  geom_bar(mapping = aes(x = year, fill = semester)) + 
   theme (text = element_text(size=12)) + 
-  ggtitle ("In which year and season the collection data process began?") +
-  labs(x = "Año",y = "Observaciones por semestre") 
+  ggtitle ("How many observations per year?") +
+  labs(x = "Año",y = "Observaciones") +
+  facet_wrap( ~ year)
 ```
-Esta gráfica nos muestra en que año y temporada empezó el proceso de recolección de datos.
+This graph shows us in what year and season the data collection process began.This was in the fall of 2012.
 
 
 
@@ -163,9 +162,9 @@ ggplot(data = SETAP) +
   geom_bar(mapping = aes(x = teamLeadGender, fill = teamLeadGender)) + 
   theme (text = element_text(size=12)) + 
   ggtitle ("How many observations the data shows per gender (male vs female) in total") +
-  labs(x = "Genero",y = "Observaciones") 
+  labs(x = "Gender",y = "Observations") 
 ```
-Nos muestra el total de observaciones por cada genero.
+This graph shows us the total of observations for each gender. They were more men than women.
 
 ```{r}
 SETAP %>%
@@ -174,9 +173,9 @@ SETAP %>%
   geom_bar() + 
   theme (text = element_text(size=12)) + 
   ggtitle ("How many observations per Female is divided by year") +
-  labs(x = "Año",y = "Observaciones") 
+  labs(x = "Year",y = "Observations") 
 ```
-Esta gráfica nos muestra el total de observaciones por cada año y temporada de las mujeres.
+This graph shows the total number of observations for each year and season of the women.
 
 ```{r}
 SETAP %>%
@@ -185,9 +184,9 @@ SETAP %>%
   geom_bar() + 
   theme (text = element_text(size=12)) + 
   ggtitle ("How many observations per Male is divided by year") +
-  labs(x = "Año",y = "Observaciones")
+  labs(x = "Year",y = "Observations")
 ```
-Esta gráfica nos muestra el total de observaciones por cada año y temporada de los hombres.
+This graph shows the total number of observations for each year and season of the men.
 
 
 
@@ -203,7 +202,7 @@ ggplot(data = SETAP) +
   ggtitle ("How many students are grouped by each team?") +
   labs(x = "Equipo",y = "Observaciones por equipo") 
 ```
-Nos muestra el total de estudiantes en cada equipo.
+This graph shows the total number of students in each team.
 
 ```{r}
 ggplot(data = SETAP) + 
@@ -212,7 +211,7 @@ ggplot(data = SETAP) +
   ggtitle ("How many students are grouped by each team per semester") +
   labs(x = "Equipo",y = "Observaciones por equipo") 
 ```
-Nos muestra el total de estudiantes en cada grupo por semestre.
+This graph shows the total number of students in each team per semester.
 
 ```{r}
 ggplot(data = SETAP) + 
@@ -221,7 +220,7 @@ ggplot(data = SETAP) +
   ggtitle ("How many students are grouped by each team per semester") +
   labs(x = "Equipo",y = "Observaciones por equipo") 
 ```
-Nos muestra el total de estudiantes en cada grupo por año.
+This graph shows the total number of students in each team per year.
 
 
 
